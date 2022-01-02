@@ -10,7 +10,7 @@ module.exports = {
     },
 
     entry : {
-        app : ['./client2', './client3', './client4'],
+        app : ['./client2', './client3', './client4', './client5'],
     }, // 입력
     module : {
         rules : [{
