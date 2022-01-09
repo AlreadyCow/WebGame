@@ -68,24 +68,24 @@ const Lotto = () => {
   // 2번째 인자, 빈 배열이면 componentDidMount와 동일한 역할
   // 2번째 인자, 배열에 요소가 있으면 componentDidMount랑 componentDidupdate 둘 다 수행
 
+  // useCallback : 두번째인자가 바뀔때까지 함수를 기억
   // Hooks는 함수 생성이 매번 이루어지지만.. useCallback을 이용하면 해당 함수를 새로 생성하지 않고, 기억하고있는 함수를 반환
   // useCallback사용시 이용되는 state는 반드시 useCallback의 두번째인자에 넣어주어야 변경된 값을 기억함(안쓰면 첫번째 값을 계속 기억함..)
   // 자식 컴포넌트에 props로 함수를 전달할 때는 필수로 useCallback 사용해야함!!!
-  // useCallback : 두번째인자가 바뀔때까지 함수를 기억
   const onClickRedo = useCallback(() => {
     setWinNumbers(getWinNumbers()); // 당첨 숫자들
     setwinBalls([]);
     setBonus(null); // 보너스공
     setRedo(false);
     timeouts.current = [];
-  }, []);
+  }, [winNumbers]);
 
   return (
     <>
       <div>당첨 숫자</div>
       <div id="결과창">
         {winBalls.map((v) => (
-          <Ball key={v} number={v} />
+          <Ball key={v} number={v} clickRedo={onClickRedo} />
         ))}
       </div>
       <div>보너스</div>
