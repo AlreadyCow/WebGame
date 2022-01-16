@@ -1,0 +1,33 @@
+# 7강. 틱택토
+* useReducer
+ - redux의개념을 react가 도입하며 만들어진 개념 (redux개념을 알고있다면 이해가 쉬울것이라함..)
+ - state, setState 수를 줄여 좀 더 편리하게 관리하기위해 사용
+ - 첫번째 인자로 넘어오는 reducer 함수를 통해 컴포넌트의 상태(state)가 행동(action)에 따라 어떻게 변해야하는지를 정의함
+ - state를 변경하려면 직접 변경 불가능하므로, 이벤트가 실행될때 action을 dispatch해서 변경함 (state를 어떻게 변경할지를 reducer에 기록함)
+ - reducer를 여러개 만들 수도 있는데.. 제로초 강의에서는 다루지 않음 (참고:https://iancoding.tistory.com/138)
+
+ ex) const [state, dispatch] = useReducer(reducer, initialState);
+    인자는 reducer, initialState, 지연초기화(거의사용안함:복잡해질때만 씀) > 보통은 두개의 인자로도 충분.. by제로초
+
+    reducer(reducer함수) : 현재 상태(state) 객체와 행동(action) 객체를 인자로 받아서 새로운 상태(state) 객체를 반환하는 함수
+                            ex) TicTacToe.jsx : line_23
+
+    initialState(초기상태) : 기존에 useState로 정의하던 초기값을 하나로 모아서 정의함
+                            ex) 
+                            before >> TicTacToe.jsx : line_64
+                                const [winner, setWinner] = useState("");
+                                const [turn, setTurn] = useState("O");
+                                const [tableData, setTableData] = useState([["", "", ""], ["", "", ""], ["", "", ""],]);
+                            after >> TicTacToe.jsx : line_5
+                                const initialState = {
+                                                        winner: "",
+                                                        turn: "O",
+                                                        tableData: [["", "", ""], ["", "", ""], ["", "", ""],],
+                                                        recentCell: [-1 - 1],
+                                                    };
+
+ * dispatch ex) TicTacToe.jsx : line_79 / TicTacToe.jsx : line_23
+  - dispatch()를 사용하면 HTML 안에서 reducer함수를 동작 시킬 수 있음 
+  ex) dispatch({ type: SET_WINNER, winner: "" }); // type 속성은 string이며, 관리하기 쉽도록 상수로 변경하여 전달하는 것을 권장
+      > action을 dispatch하면 reducer함수가 호출됨.
+        dispatch로 전달된 action.type에 따라 실행할 코드를 작성하면 이전 state에서 변경된 state를 확인하여 새로운 state를 반환함
