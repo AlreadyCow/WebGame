@@ -24,7 +24,7 @@ const reducer = (state, action) => {
   switch (action.type) {
     case SET_WINNER:
       // return state.winner = action.winner; // 이렇게 하면 안됨..
-      return { ...state, winner: action.winner }; // ...state를 통해 객체를 얕은 복사 후 변경함
+      return { ...state, winner: action.winner }; // ...state를 통해 객체를 얕은 복사 후 변경함(직접바꾸는건 안됩니다!!!!!!)
     case CLICK_CELL: {
       const tableData = [...state.tableData];
       tableData[action.row] = [...tableData[action.row]]; // 불변성을 유지하기위해 객체를 얕은 복사 하는데.. immer라는 라이브러리로 가독성을 해결할 수 있음
